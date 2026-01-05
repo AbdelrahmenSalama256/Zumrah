@@ -7,7 +7,7 @@ import 'package:zumrah/core/cubit/global_cubit.dart';
 import 'package:zumrah/core/cubit/global_state.dart';
 import 'package:zumrah/core/locale/localization_settings.dart';
 
-import '../../features/base/view/base_screen.dart';
+import '../../features/splash/view/splash_screen.dart';
 import '../services/service_locator.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
@@ -52,7 +52,7 @@ class ZumrahHome extends StatelessWidget {
 
               //!Routing
 
-              home: const BaseScreen(),
+              home: const SplashScreen(),
             );
           },
         );

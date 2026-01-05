@@ -17,7 +17,7 @@ import 'package:zumrah/core/utils/validator.dart';
 import 'package:zumrah/features/auth/view/create_account_screen.dart';
 import 'package:zumrah/features/auth/view/cubit/auth_cubit.dart';
 import 'package:zumrah/features/auth/view/cubit/auth_state.dart';
-import 'package:zumrah/features/auth/view/verification_screen.dart';
+import 'package:zumrah/features/base/view/base_screen.dart';
 
 //! LoginScreen
 class LoginScreen extends StatelessWidget {
@@ -39,16 +39,17 @@ class LoginScreen extends StatelessWidget {
               );
               context.read<GlobalCubit>().getProfile(forceRefresh: true);
               context.read<GlobalCubit>().changeBottomNavIndex(0);
-              navigateAndFinish(
-                context,
-                BlocProvider(
-                  create: (_) => AuthCubit(),
-                  child: VerificationScreen(
-                    emailOrPhoneForOtp:
-                        context.read<AuthCubit>().loginEmailController.text,
-                  ),
-                ),
-              );
+              // navigateAndFinish(
+              //   context,
+              //   BlocProvider(
+              //     create: (_) => AuthCubit(),
+              //     child: VerificationScreen(
+              //       emailOrPhoneForOtp:
+              //           context.read<AuthCubit>().loginEmailController.text,
+              //     ),
+              //   ),
+              // );
+              navigateTo(context, BaseScreen());
             } else if (state is AuthFailure) {
               showToast(
                 context,
