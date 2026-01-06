@@ -5,17 +5,23 @@ class CustomScaffold extends StatelessWidget {
   final Widget body;
   final String? backgroundImagePath;
   final bool? hasBg;
+  final Widget? drawer;
+  final GlobalKey<ScaffoldState>? scaffoldKey;
 
   const CustomScaffold({
     super.key,
     required this.body,
     this.backgroundImagePath,
     this.hasBg,
+    this.drawer,
+    this.scaffoldKey,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
+      drawer: drawer,
       body: Stack(
         children: [
           Positioned.fill(

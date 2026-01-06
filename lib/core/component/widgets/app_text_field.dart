@@ -7,8 +7,10 @@ import 'package:zumrah/core/constants/app_colors.dart';
 class AppTextField extends StatefulWidget {
   final TextEditingController controller;
   final String? labelText;
+  final Color? inputBorderColor;
   final String? hintText;
-  final String? errorText;
+  final TextStyle? hintStyle;
+  String? errorText;
   final bool obscureText;
   final bool readOnly;
   final TextInputType keyboardType;
@@ -31,7 +33,7 @@ class AppTextField extends StatefulWidget {
   final TextAlign textAlign;
   final AutovalidateMode autovalidateMode;
 
-  const AppTextField({
+  AppTextField({
     super.key,
     required this.controller,
     this.labelText,
@@ -58,6 +60,8 @@ class AppTextField extends StatefulWidget {
     this.textDirection,
     this.textAlign = TextAlign.start,
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
+    this.inputBorderColor,
+    this.hintStyle,
   });
 
   @override
@@ -118,16 +122,17 @@ class _AppTextFieldState extends State<AppTextField> {
       decoration: InputDecoration(
         labelText: widget.labelText,
         hintText: widget.hintText,
-        hintStyle: TextStyle(
-          fontSize: 18.sp,
-          fontFamily: 'Alexandria',
-          fontWeight: FontWeight.w500,
-          color: _hasFocus ? Color(0xff9CA3AF) : const Color(0xff5A7080),
-        ),
+        hintStyle: widget.hintStyle ??
+            TextStyle(
+              fontSize: 18.sp,
+              fontFamily: 'Alexandria',
+              fontWeight: FontWeight.w500,
+              color: _hasFocus ? Color(0xff9CA3AF) : const Color(0xff5A7080),
+            ),
         labelStyle: TextStyle(
           fontSize: 14.sp,
           fontFamily: 'Alexandria',
-            fontWeight: FontWeight.w600,
+          fontWeight: FontWeight.w600,
           color: _hasFocus ? Color(0xff5A7080) : const Color(0xff5A7080),
         ),
         errorText: widget.errorText,
@@ -155,24 +160,26 @@ class _AppTextFieldState extends State<AppTextField> {
             ),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: const BorderSide(
-            color: Color(0xffEBEBEB),
+          borderSide: BorderSide(
+            color: widget.inputBorderColor ?? Color(0xffEBEBEB),
           ),
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: const BorderSide(color: Color(0xffEBEBEB)),
+          borderSide: BorderSide(
+            color: widget.inputBorderColor ?? const Color(0xffEBEBEB),
+          ),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: const BorderSide(
-            color: Color(0xffEBEBEB),
+          borderSide: BorderSide(
+            color: widget.inputBorderColor ?? Color(0xffEBEBEB),
             width: 2,
           ),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(12.r),
-          borderSide: const BorderSide(
+          borderSide: BorderSide(
             color: Color(0xFFE53935),
           ),
         ),

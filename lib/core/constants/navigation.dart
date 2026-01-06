@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
+final GlobalKey<ScaffoldState> drawerKey = GlobalKey<ScaffoldState>();
 
 // =============================================
 // 1. Push with Slide From Right (Most Common)

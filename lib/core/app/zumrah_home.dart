@@ -6,8 +6,8 @@ import 'package:zumrah/core/component/widgets/app_theme.dart';
 import 'package:zumrah/core/cubit/global_cubit.dart';
 import 'package:zumrah/core/cubit/global_state.dart';
 import 'package:zumrah/core/locale/localization_settings.dart';
+import 'package:zumrah/features/splash/view/splash_screen.dart';
 
-import '../../features/splash/view/splash_screen.dart';
 import '../services/service_locator.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
