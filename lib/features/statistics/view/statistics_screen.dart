@@ -7,6 +7,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:zumrah/core/constants/app_colors.dart';
 import 'package:zumrah/core/cubit/global_cubit.dart';
+import 'package:zumrah/core/locale/app_loacl.dart';
 import 'package:zumrah/features/home/view/widgets/app_bar_main.dart';
 import 'package:zumrah/features/statistics/view/widgets/recent_share.dart';
 import 'package:zumrah/features/statistics/view/widgets/statistics_card_share.dart';
@@ -19,9 +20,12 @@ class StatisticsScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBarMain(
-        title: 'التحليلات',
+        title: "statistics_title".tr(context),
         onBackTap: () {
           context.read<GlobalCubit>().changeBottomNavIndex(0);
+        },
+        onMenuTap: () {
+          Scaffold.of(context).openDrawer();
         },
       ),
       body: SingleChildScrollView(
@@ -70,7 +74,7 @@ class StatisticsScreen extends StatelessWidget {
                             Column(
                               children: [
                                 Text(
-                                  'زيارات البروفايل',
+                                  "statistics_profile_visits".tr(context),
                                   style: TextStyle(
                                     fontSize: 14.sp,
                                     fontFamily: 'Alexandria',
@@ -110,7 +114,7 @@ class StatisticsScreen extends StatelessWidget {
                         ),
                         SizedBox(height: 8.h),
                         Text(
-                          "هذا الأسبوع مقارنة بالأسبوع الماضي",
+                          "statistics_this_week_vs_last".tr(context),
                           style: TextStyle(
                             fontSize: 12.sp,
                             fontFamily: 'Alexandria',
@@ -132,14 +136,14 @@ class StatisticsScreen extends StatelessWidget {
                                     showTitles: true,
                                     reservedSize: 32,
                                     getTitlesWidget: (value, meta) {
-                                      const days = [
-                                        'السبت',
-                                        'الأحد',
-                                        'الإثنين',
-                                        'الثلاثاء',
-                                        'الأربعاء',
-                                        'الخميس',
-                                        'الجمعة'
+                                      final days = [
+                                        "day_sat".tr(context),
+                                        "day_sun".tr(context),
+                                        "day_mon".tr(context),
+                                        "day_tue".tr(context),
+                                        "day_wed".tr(context),
+                                        "day_thu".tr(context),
+                                        "day_fri".tr(context),
                                       ];
                                       int index = value.toInt();
                                       if (index >= 0 && index < days.length) {
@@ -227,13 +231,13 @@ class StatisticsScreen extends StatelessWidget {
                 children: [
                   StatisticsCardShare(
                     title: "450",
-                    subtitle: "عبر QR",
+                    subtitle: "statistics_via_qr".tr(context),
                     iconImage: "assets/images/svg/qr.svg",
                     persentage: "5",
                   ),
                   StatisticsCardShare(
                     title: "120",
-                    subtitle: "عبر NFC",
+                    subtitle: "statistics_via_nfc".tr(context),
                     iconImage: "assets/images/svg/share_nfc.svg",
                     persentage: "2",
                   ),
@@ -247,7 +251,7 @@ class StatisticsScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'آخر التفاعلات',
+                    "last_interactions".tr(context),
                     style: TextStyle(
                       fontSize: 18.sp,
                       fontFamily: 'Alexandria',
@@ -260,7 +264,7 @@ class StatisticsScreen extends StatelessWidget {
                       // Handle view all tap
                     },
                     child: Text(
-                      "عرض الكل",
+                      "see_all_button".tr(context),
                       style: TextStyle(
                         fontSize: 14.sp,
                         fontFamily: 'Alexandria',
@@ -286,7 +290,7 @@ class StatisticsScreen extends StatelessWidget {
                   itemCount: 5,
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
+                  physics: AlwaysScrollableScrollPhysics(),
                 ),
               ),
             ],

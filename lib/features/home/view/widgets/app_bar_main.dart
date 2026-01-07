@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -26,6 +27,11 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      systemOverlayStyle: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+      ),
       backgroundColor: Colors.transparent,
       elevation: 0,
       leadingWidth: 100.w,
@@ -92,63 +98,69 @@ class AppBarMain extends StatelessWidget implements PreferredSizeWidget {
                 ),
               ),
       ),
-      actions: [
-        Padding(
-          padding: EdgeInsetsDirectional.only(end: 16.w),
-          child: Builder(
-            builder: (innerContext) {
-              return GestureDetector(
-                onTap: onMenuTap ??
-                    () {
-                      drawerKey.currentState?.openDrawer();
-                    },
-                child: Row(
-                  children: [
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(24.r),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
-                        child: Container(
-                          width: 40.w,
-                          height: 40.h,
-                          decoration: BoxDecoration(
-                            color: Colors.white.withOpacity(0.8),
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                              color: Colors.white.withOpacity(0.8),
-                              width: 1,
+      actions: onMenuTap != null
+          ? [
+              Padding(
+                padding: EdgeInsetsDirectional.only(end: 16.w),
+                child: Builder(
+                  builder: (innerContext) {
+                    return GestureDetector(
+                      onTap: onMenuTap ??
+                          () {
+                            drawerKey.currentState?.openDrawer();
+                          },
+                      child: Row(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(24.r),
+                            child: BackdropFilter(
+                              filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+                              child: Container(
+                                width: 40.w,
+                                height: 40.h,
+                                decoration: BoxDecoration(
+                                  color: Colors.white.withOpacity(0.8),
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Colors.white.withOpacity(0.8),
+                                    width: 1,
+                                  ),
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: const Color(0xFF2EADE0)
+                                          .withOpacity(0.1),
+                                      offset: const Offset(0, 4),
+                                      blurRadius: 6,
+                                      spreadRadius: -4,
+                                    ),
+                                    BoxShadow(
+                                      color: const Color(0xFF2EADE0)
+                                          .withOpacity(0.1),
+                                      offset: const Offset(0, 10),
+                                      blurRadius: 15,
+                                      spreadRadius: -3,
+                                    ),
+                                  ],
+                                ),
+                                child: Icon(Icons.menu,
+                                    color: AppColors.g1, size: 24.sp),
+                              ),
                             ),
-                            boxShadow: [
-                              BoxShadow(
-                                color: const Color(0xFF2EADE0).withOpacity(0.1),
-                                offset: const Offset(0, 4),
-                                blurRadius: 6,
-                                spreadRadius: -4,
-                              ),
-                              BoxShadow(
-                                color: const Color(0xFF2EADE0).withOpacity(0.1),
-                                offset: const Offset(0, 10),
-                                blurRadius: 15,
-                                spreadRadius: -3,
-                              ),
-                            ],
                           ),
-                          child: Icon(Icons.menu,
-                              color: AppColors.g1, size: 24.sp),
-                        ),
+                        ],
                       ),
-                    ),
-                  ],
+                    );
+                  },
                 ),
-              );
-            },
-          ),
-        ),
-      ],
+              ),
+            ]
+          : [],
       centerTitle: true,
       title: !isHome && title != null
           ? Text(
               title!,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
               style: TextStyle(
                 color: AppColors.secondaryColor,
                 fontSize: 17.sp,

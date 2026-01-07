@@ -24,6 +24,9 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: Colors.transparent,
       appBar: AppBarMain(
         isHome: true,
+        onMenuTap: () {
+          Scaffold.of(context).openDrawer();
+        },
       ),
       body: SingleChildScrollView(
         child: Padding(

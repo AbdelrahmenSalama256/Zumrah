@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zumrah/core/component/widgets/app_theme.dart';
@@ -18,9 +17,6 @@ class ZumrahHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.dark,
-    ));
     return BlocBuilder<GlobalCubit, GlobalState>(
       builder: (context, state) {
         return ScreenUtilInit(

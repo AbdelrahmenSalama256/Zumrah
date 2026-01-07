@@ -10,7 +10,7 @@ class AppTextField extends StatefulWidget {
   final Color? inputBorderColor;
   final String? hintText;
   final TextStyle? hintStyle;
-  String? errorText;
+  final String? errorText;
   final bool obscureText;
   final bool readOnly;
   final TextInputType keyboardType;
@@ -33,7 +33,7 @@ class AppTextField extends StatefulWidget {
   final TextAlign textAlign;
   final AutovalidateMode autovalidateMode;
 
-  AppTextField({
+  const AppTextField({
     super.key,
     required this.controller,
     this.labelText,

@@ -6,7 +6,6 @@ import 'package:zumrah/core/component/widgets/app_button.dart';
 import 'package:zumrah/core/cubit/global_cubit.dart';
 import 'package:zumrah/core/locale/app_loacl.dart';
 import 'package:zumrah/features/home/view/widgets/app_bar_main.dart';
-import 'package:zumrah/features/home/view/widgets/profile_header.dart';
 import 'package:zumrah/features/profile/view/widgets/info_section.dart';
 
 import '../../../core/constants/app_colors.dart';
@@ -22,7 +21,7 @@ class ProfileScreen extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBarMain(
-        title: "الملف الشخصي",
+        title: "profile".tr(context),
         onBackTap: () {
           context.read<GlobalCubit>().changeBottomNavIndex(0);
         },
@@ -35,11 +34,135 @@ class ProfileScreen extends StatelessWidget {
           padding: EdgeInsets.all(16.w),
           child: Column(
             children: [
-              ProfileHeader(
-                name: "profile_name".tr(context),
-                role: "profile_role".tr(context),
-                trackingEnabled: false,
-                onTrackingChanged: (_) {},
+              Stack(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Stack(
+                          children: [
+                            Container(
+                              width: 112.w,
+                              height: 112.h,
+                              padding: EdgeInsets.all(7.w),
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                gradient: LinearGradient(
+                                  begin: AlignmentDirectional.topStart,
+                                  end: AlignmentDirectional.topEnd,
+                                  colors: [
+                                    Colors.white.withOpacity(0.50),
+                                    Colors.white.withOpacity(0.8),
+                                  ],
+                                ),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: const Color(0x1A000000),
+                                    offset: const Offset(0, 4),
+                                    blurRadius: 6,
+                                    spreadRadius: -4,
+                                  ),
+                                  BoxShadow(
+                                    color: const Color(0x1A000000),
+                                    offset: const Offset(0, 10),
+                                    blurRadius: 15,
+                                    spreadRadius: -3,
+                                  ),
+                                ],
+                              ),
+                              child: ClipOval(
+                                child: Image.asset(
+                                  "assets/images/user_avatar.jpg",
+                                  width: 98.w,
+                                  height: 98.h,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            PositionedDirectional(
+                              start: 5.w,
+                              bottom: 10.h,
+                              child: Container(
+                                width: 30.w,
+                                height: 30.h,
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Center(
+                                  child: ShaderMask(
+                                    shaderCallback: (Rect bounds) {
+                                      return const LinearGradient(
+                                        begin: Alignment.centerLeft,
+                                        end: Alignment.centerRight,
+                                        colors: [
+                                          Color(0xFF5B8ED1),
+                                          Color(0xFF65DFE6),
+                                        ],
+                                      ).createShader(bounds);
+                                    },
+                                    blendMode: BlendMode.srcIn,
+                                    child: Icon(
+                                      Iconsax.camera,
+                                      size: 20.sp,
+                                      color: Colors.white,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(height: 16.h),
+                      Center(
+                        child: Column(
+                          children: [
+                            Text(
+                              "عبدالله الشمري",
+                              style: TextStyle(
+                                color: Color(0xff5A7080),
+                                fontSize: 24.sp,
+                                fontWeight: FontWeight.w700,
+                                fontFamily: 'Alexandria',
+                              ),
+                            ),
+                            SizedBox(height: 4.h),
+                            Text(
+                              "مسؤول تسويق",
+                              style: TextStyle(
+                                color: AppColors.primaryColor,
+                                fontSize: 14.sp,
+                                fontWeight: FontWeight.w500,
+                                fontFamily: 'Alexandria',
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  Positioned(
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      height: 96.h,
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: AlignmentDirectional.topEnd,
+                          end: AlignmentDirectional.topStart,
+                          colors: [
+                            Color.fromRGBO(46, 174, 224, 0.1),
+                            Color.fromRGBO(46, 174, 224, 0.0),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 30.h),
               InfoSection(

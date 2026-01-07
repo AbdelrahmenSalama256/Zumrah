@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 class CustomScaffold extends StatelessWidget {
@@ -7,6 +8,9 @@ class CustomScaffold extends StatelessWidget {
   final bool? hasBg;
   final Widget? drawer;
   final GlobalKey<ScaffoldState>? scaffoldKey;
+  final PreferredSizeWidget? appBar;
+  final bool extendBodyBehindAppBar;
+  final bool extendBody;
 
   const CustomScaffold({
     super.key,
@@ -15,29 +19,46 @@ class CustomScaffold extends StatelessWidget {
     this.hasBg,
     this.drawer,
     this.scaffoldKey,
+    this.appBar,
+    this.extendBodyBehindAppBar = true,
+    this.extendBody = true,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: scaffoldKey,
-      drawer: drawer,
-      body: Stack(
-        children: [
-          Positioned.fill(
-            child: hasBg == false
-                ? Container()
-                : Image.asset(
-                    "assets/images/png/main.png",
-                    fit: BoxFit.cover,
-                    errorBuilder: (context, error, stackTrace) {
-                      return SvgPicture.asset("assets/images/svg/main.svg",
-                          fit: BoxFit.cover);
-                    },
-                  ),
-          ),
-          Positioned.fill(child: body),
-        ],
+    return AnnotatedRegion<SystemUiOverlayStyle>(
+      value: const SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light,
+      ),
+      child: Scaffold(
+        key: scaffoldKey,
+        drawer: drawer,
+        backgroundColor: Colors.white,
+        extendBodyBehindAppBar: extendBodyBehindAppBar,
+        extendBody: extendBody,
+        body: Stack(
+          children: [
+            Positioned.fill(
+              child: hasBg == false
+                  ? Container()
+                  : Image.asset(
+                      "assets/images/png/main.png",
+                      fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return SvgPicture.asset("assets/images/svg/main.svg",
+                            fit: BoxFit.cover);
+                      },
+                    ),
+            ),
+            SizedBox(
+              width: double.infinity,
+              height: double.infinity,
+              child: body,
+            )
+          ],
+        ),
       ),
     );
   }

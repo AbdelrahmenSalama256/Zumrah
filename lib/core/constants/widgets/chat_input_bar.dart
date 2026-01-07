@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:zumrah/core/locale/app_loacl.dart';
 
 //! ChatInputBar
 class ChatInputBar extends StatefulWidget {
@@ -67,9 +68,7 @@ class _ChatInputBarState extends State<ChatInputBar>
                     controller: _controller,
                     style: TextStyle(fontSize: 14.sp),
                     decoration: InputDecoration(
-                      hintText: Directionality.of(context) == TextDirection.rtl
-                          ? "اكتب رسالتك..."
-                          : "Aa",
+                      hintText: "chat_write_message_hint".tr(context),
                       border: InputBorder.none, // إزالة البوردر
                       contentPadding: EdgeInsets.symmetric(
                           horizontal: 10.w, vertical: 12.h),

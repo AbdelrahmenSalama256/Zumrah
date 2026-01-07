@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -8,8 +9,10 @@ import 'package:iconsax/iconsax.dart';
 import 'package:zumrah/core/component/widgets/app_button.dart';
 import 'package:zumrah/core/constants/app_colors.dart';
 import 'package:zumrah/core/constants/custom_scaffold.dart';
+import 'package:zumrah/core/constants/navigation.dart';
 import 'package:zumrah/core/cubit/global_cubit.dart';
 import 'package:zumrah/core/cubit/global_state.dart';
+import 'package:zumrah/core/locale/app_loacl.dart';
 import 'package:zumrah/features/home/view/widgets/custom_drawer.dart';
 
 import '../../home/view/home_screen.dart';
@@ -37,105 +40,87 @@ class _BaseScreenState extends State<BaseScreen> {
       builder: (context, state) {
         final selectedIndex = context.read<GlobalCubit>().currentNavIndex;
         return CustomScaffold(
+          scaffoldKey: drawerKey,
           drawer: const CustomDrawer(),
           backgroundImagePath: "assets/images/png/main.png",
-          body: SafeArea(
-            child: Stack(
-              children: [
-                Container(
-                  margin: EdgeInsets.only(bottom: 85.h),
-                  child: IndexedStack(
-                    index: selectedIndex,
-                    children: _screens,
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    margin:
-                        EdgeInsets.symmetric(horizontal: 10.w, vertical: 7.h),
-                    height: 62.h,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(32.r),
-                      border: Border.all(
-                        color: Colors.white.withOpacity(0.8),
-                        width: 1,
-                      ),
-                      boxShadow: [
-                        BoxShadow(
-                          color: const Color(0xFF0E4F93).withOpacity(0.05),
-                          offset: const Offset(0, 4),
-                          blurRadius: 6,
-                          spreadRadius: -4,
-                        ),
-                        BoxShadow(
-                          color: const Color(0xFF0E4F93).withOpacity(0.05),
-                          offset: const Offset(0, 10),
-                          blurRadius: 15,
-                          spreadRadius: -3,
-                        ),
-                      ],
+          body: WillPopScope(
+            onWillPop: () async {
+              if (selectedIndex != 0) {
+                context.read<GlobalCubit>().changeBottomNavIndex(0);
+                return false;
+              } else {
+                return true;
+              }
+            },
+            child: SafeArea(
+              child: Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(bottom: 85.h),
+                    color: Colors.transparent,
+                    child: IndexedStack(
+                      index: selectedIndex,
+                      children: _screens,
                     ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(32.r),
-                      child: BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
-                        child: BottomAppBar(
-                          color: Colors.transparent,
-                          shape: const CircularNotchedRectangle(),
-                          notchMargin: 10,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              _buildNavItem(
-                                  context, Iconsax.home, Iconsax.home, 0),
-                              _buildNavItem(
-                                  context, Iconsax.chart_2, Iconsax.chart_2, 1),
-                              SizedBox(width: 60.w),
-                              _buildNavItem(context, Iconsax.notification_bing,
-                                  Iconsax.notification_bing, 2),
-                              _buildNavItem(
-                                  context, Iconsax.user, Iconsax.user, 3),
-                            ],
+                  ),
+                  Positioned(
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    child: Align(
+                      alignment: Alignment.bottomCenter,
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        margin: EdgeInsets.symmetric(
+                            horizontal: 10.w, vertical: 7.h),
+                        height: 62.h,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(32.r),
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.8),
+                            width: 1,
                           ),
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-                // Center Button with restricted tap area
-                Positioned(
-                  bottom: 40.h,
-                  left: 0,
-                  right: 0,
-                  child: Center(
-                    child: Container(
-                      width: 62.w, // Same as button width
-                      height: 62.w, // Same as button height
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.transparent,
-                      ),
-                      child: Material(
-                        color: Colors.transparent,
-                        child: InkWell(
-                          onTap: () => _showFullScreenPopup(context),
-                          borderRadius: BorderRadius.circular(31.w),
-                          splashColor: AppColors.primaryColor.withOpacity(0.3),
-                          highlightColor: Colors.transparent,
-                          child: Container(
-                            width: 62.w,
-                            height: 62.w,
-                            decoration: const BoxDecoration(
-                              shape: BoxShape.circle,
+                          boxShadow: [
+                            BoxShadow(
+                              color: const Color(0xFF0E4F93).withOpacity(0.05),
+                              offset: const Offset(0, 4),
+                              blurRadius: 6,
+                              spreadRadius: -4,
                             ),
-                            child: Center(
-                              child: Image.asset(
-                                'assets/images/png/logo1.png',
-                                width: double.infinity,
-                                height: double.infinity,
+                            BoxShadow(
+                              color: const Color(0xFF0E4F93).withOpacity(0.05),
+                              offset: const Offset(0, 10),
+                              blurRadius: 15,
+                              spreadRadius: -3,
+                            ),
+                          ],
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(32.r),
+                          child: BackdropFilter(
+                            filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
+                            child: BottomAppBar(
+                              color: Colors.transparent,
+                              shape: const CircularNotchedRectangle(),
+                              notchMargin: 10,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  _buildNavItem(
+                                      context, Iconsax.home, Iconsax.home, 0),
+                                  _buildNavItem(context, Iconsax.chart_2,
+                                      Iconsax.chart_2, 1),
+                                  SizedBox(width: 60.w),
+                                  _buildNavItem(
+                                      context,
+                                      CupertinoIcons.chat_bubble,
+                                      CupertinoIcons.chat_bubble,
+                                      2),
+                                  _buildNavItem(
+                                      context, Iconsax.user, Iconsax.user, 3),
+                                ],
                               ),
                             ),
                           ),
@@ -143,8 +128,48 @@ class _BaseScreenState extends State<BaseScreen> {
                       ),
                     ),
                   ),
-                ),
-              ],
+                  // Center Button with restricted tap area
+                  Positioned(
+                    bottom: 40.h,
+                    left: 0,
+                    right: 0,
+                    child: Center(
+                      child: Container(
+                        width: 62.w, // Same as button width
+                        height: 62.w, // Same as button height
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.transparent,
+                        ),
+                        child: Material(
+                          color: Colors.transparent,
+                          child: InkWell(
+                            onTap: () => _showFullScreenPopup(context),
+                            borderRadius: BorderRadius.circular(31.w),
+                            splashColor:
+                                AppColors.primaryColor.withOpacity(0.3),
+                            highlightColor: Colors.transparent,
+                            child: Container(
+                              width: 62.w,
+                              height: 62.w,
+                              decoration: const BoxDecoration(
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: Image.asset(
+                                  'assets/images/png/logo1.png',
+                                  width: double.infinity,
+                                  height: double.infinity,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -250,7 +275,7 @@ Widget _buildFullScreenBlurPopup(BuildContext dialogContext) {
                     children: [
                       Center(
                         child: Text(
-                          "مشاركة الملف الشخصي",
+                          "share_profile_title".tr(dialogContext),
                           style: TextStyle(
                             fontSize: 17.71.sp,
                             fontFamily: 'Alexandria',
@@ -280,7 +305,7 @@ Widget _buildFullScreenBlurPopup(BuildContext dialogContext) {
                       SizedBox(height: 24.h),
                       Center(
                         child: Text(
-                          "مسح QR",
+                          "scan_qr_label".tr(dialogContext),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14.sp,
@@ -302,7 +327,7 @@ Widget _buildFullScreenBlurPopup(BuildContext dialogContext) {
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 8.w),
                             child: Text(
-                              "أو",
+                              "or_label".tr(dialogContext),
                               style: TextStyle(
                                 fontSize: 14.sp,
                                 fontFamily: 'Alexandria',
@@ -327,13 +352,13 @@ Widget _buildFullScreenBlurPopup(BuildContext dialogContext) {
                         child: AppButton(
                           backgroundColor: AppColors.primaryColor,
                           height: 60.h,
-                          text: "مشاركة NFC",
-                          onPressed: () async {
+                          text: "share_nfc".tr(dialogContext),
+                          onPressed: () {
                             // Close current dialog first
                             Navigator.of(dialogContext).pop();
-                            // Then open NFC popup after a short delay
-                            await Future.delayed(
-                                const Duration(milliseconds: 100), () {
+                            // Then open NFC popup after a short delay (no await to avoid using BuildContext across async gap)
+                            Future.delayed(const Duration(milliseconds: 100),
+                                () {
                               _showNfcPopup(dialogContext);
                             });
                           },
@@ -353,7 +378,7 @@ Widget _buildFullScreenBlurPopup(BuildContext dialogContext) {
                         child: AppButton(
                           backgroundColor: AppColors.primaryColor,
                           height: 60.h,
-                          text: "نسخ الرابط",
+                          text: "copy_link_label".tr(dialogContext),
                           onPressed: () {
                             // Add your copy link functionality here
                             Navigator.of(dialogContext).pop();
@@ -436,7 +461,7 @@ Widget _buildNfcPopupContent(BuildContext dialogContext) {
                     children: [
                       Center(
                         child: Text(
-                          "مشاركة الملف الشخصي",
+                          "share_profile_title".tr(dialogContext),
                           style: TextStyle(
                             fontSize: 17.71.sp,
                             fontFamily: 'Alexandria',
@@ -467,7 +492,7 @@ Widget _buildNfcPopupContent(BuildContext dialogContext) {
                       SizedBox(height: 24.h),
                       Center(
                         child: Text(
-                          "لابد من اقتراب الجولات للتصديق",
+                          "nfc_proximity_message".tr(dialogContext),
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             fontSize: 14.sp,
@@ -484,7 +509,7 @@ Widget _buildNfcPopupContent(BuildContext dialogContext) {
                         child: AppButton(
                           backgroundColor: AppColors.primaryColor,
                           height: 60.h,
-                          text: "تأكيد NFC",
+                          text: "confirm_nfc_button".tr(dialogContext),
                           onPressed: () {
                             Navigator.of(dialogContext).pop();
                           },

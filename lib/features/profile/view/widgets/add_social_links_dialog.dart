@@ -35,6 +35,7 @@ class _AddSocialLinksDialogState extends State<AddSocialLinksDialog> {
         child: BackdropFilter(
           filter: ImageFilter.blur(sigmaX: 20, sigmaY: 20),
           child: AnimatedContainer(
+            padding: EdgeInsets.all(24.w),
             duration: const Duration(milliseconds: 300),
             width: double.infinity,
             height: double.infinity,
@@ -82,7 +83,7 @@ class _AddSocialLinksDialogState extends State<AddSocialLinksDialog> {
                 /// dynamic fields
                 Flexible(
                   child: SingleChildScrollView(
-                    padding: EdgeInsets.all(12.w),
+                    // padding: EdgeInsets.all(12.w),
                     child: Column(
                       children: List.generate(
                         controllers.length,

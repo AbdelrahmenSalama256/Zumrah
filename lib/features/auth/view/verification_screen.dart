@@ -231,7 +231,7 @@ class VerificationScreen extends StatelessWidget {
                                     padding:
                                         EdgeInsets.symmetric(horizontal: 10.w),
                                     child: Text(
-                                      "ليس لديك حساب ",
+                                      "auth_dont_have_account".tr(context),
                                       style: TextStyle(
                                         fontSize: 16.sp,
                                         fontFamily: 'Alexandria',
@@ -250,7 +250,7 @@ class VerificationScreen extends StatelessWidget {
                               ),
                               SizedBox(height: 16.h),
                               AppButton(
-                                text: 'تسجيل حساب جديد',
+                                text: 'onboarding_create_account'.tr(context),
                                 type: AppButtonType.secondary,
                                 textStyle: TextStyle(
                                   fontSize: 16.sp,

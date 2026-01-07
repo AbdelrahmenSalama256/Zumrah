@@ -127,6 +127,8 @@ class StatisticsCardShare extends StatelessWidget {
               SizedBox(height: 4.h),
               Text(
                 subtitle,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w500,

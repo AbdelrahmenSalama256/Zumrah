@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:zumrah/core/constants/app_colors.dart';
+import 'package:zumrah/core/locale/app_loacl.dart';
 
 class RecentShare extends StatelessWidget {
   final String? title;
@@ -76,8 +77,7 @@ class RecentShare extends StatelessWidget {
                           ],
                         ),
                         child: Image.asset(
-                          avatarUrl ??
-                              'assets/images/png/avatar_placeholder.png',
+                          avatarUrl ?? 'assets/images/png/avatar.png',
                           errorBuilder: (context, error, stackTrace) {
                             return Icon(
                               Iconsax.user,
@@ -123,17 +123,22 @@ class RecentShare extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                              title ?? "اسم المستخدم",
-                              style: TextStyle(
-                                fontSize: 14.sp,
-                                fontWeight: FontWeight.w700,
-                                color: AppColors.secondaryHeadTextColor,
-                                fontFamily: 'Alexandria',
+                            Expanded(
+                              child: Text(
+                                title ?? "recent_default_username".tr(context),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.secondaryHeadTextColor,
+                                  fontFamily: 'Alexandria',
+                                ),
                               ),
                             ),
+                            SizedBox(width: 8.w),
                             Text(
-                              dateTime ?? "0:00 م",
+                              dateTime ?? "recent_default_time".tr(context),
                               style: TextStyle(
                                 fontSize: 10.sp,
                                 fontWeight: FontWeight.w400,
@@ -149,13 +154,18 @@ class RecentShare extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
-                            Text(
-                              subtitle ?? "وصف المشاركة",
-                              style: TextStyle(
-                                fontSize: 12.sp,
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.secondaryHeadTextColor,
-                                fontFamily: 'Alexandria',
+                            Expanded(
+                              child: Text(
+                                subtitle ??
+                                    "recent_default_description".tr(context),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 12.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: AppColors.secondaryHeadTextColor,
+                                  fontFamily: 'Alexandria',
+                                ),
                               ),
                             ),
                             if (type == "link") ...[
