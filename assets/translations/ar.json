@@ -705,5 +705,7 @@
   "terms_conditions": "الشروط والأحكام",
   "unread": "غير مقروء",
   "important": "مهم",
-  "system": "النظام"
+  "system": "النظام",
+  "mark_read": "تحديد كمقروء",
+  "view_action": "عرض الإجراء"
 }

@@ -15,6 +15,7 @@ import 'package:zumrah/core/cubit/global_state.dart';
 import 'package:zumrah/core/locale/app_loacl.dart';
 import 'package:zumrah/features/home/view/widgets/custom_drawer.dart';
 
+import '../../chat/view/chat_screen.dart';
 import '../../home/view/home_screen.dart';
 import '../../profile/view/profile_screen.dart';
 import '../../statistics/view/statistics_screen.dart';
@@ -30,7 +31,7 @@ class _BaseScreenState extends State<BaseScreen> {
   static final List<Widget> _screens = <Widget>[
     const HomeScreen(),
     const StatisticsScreen(),
-    const FavoritesScreen(),
+    const ChatScreen(),
     const ProfileScreen(),
   ];
 
@@ -216,14 +217,6 @@ class _BaseScreenState extends State<BaseScreen> {
       ),
     );
   }
-}
-
-class FavoritesScreen extends StatelessWidget {
-  const FavoritesScreen({super.key});
-  @override
-  Widget build(BuildContext context) => const Center(
-      child: Text('Favorites',
-          style: TextStyle(fontSize: 30, color: AppColors.g1)));
 }
 
 Widget _buildFullScreenBlurPopup(BuildContext dialogContext) {

@@ -142,7 +142,7 @@ class LoginScreen extends StatelessWidget {
                                     AppButton(
                                       text: "auth_send_code_button".tr(context),
                                       isLoading: state is AuthLoading,
-                                      suffixIcon: Icon(Iconsax.arrow_left,
+                                      suffixIcon: Icon(Icons.arrow_forward,
                                           color: AppColors.white, size: 25.sp),
                                       onPressed: () {
                                         authCubit.attemptLogin(formKey);

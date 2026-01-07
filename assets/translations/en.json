@@ -699,5 +699,7 @@
   "terms_conditions": "Terms & Conditions",
   "unread": "Unread",
   "important": "Important",
-  "system": "System"
+  "system": "System",
+  "mark_read": "Mark as Read",
+  "view_action": "View Action"
 }
