@@ -1,15 +1,9 @@
-
-
-
-
-
 import 'package:flutter/material.dart';
 
 import '../app/zumrah_home.dart' show navigatorKey;
 
 //! NavigationService
 class NavigationService {
-
   static GlobalKey<NavigatorState> get navigator => navigatorKey;
 
   static Future<dynamic>? navigateTo(String routeName, {Object? arguments}) {

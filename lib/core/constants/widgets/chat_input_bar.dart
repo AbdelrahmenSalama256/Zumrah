@@ -57,8 +57,6 @@ class _ChatInputBarState extends State<ChatInputBar>
 
             children: [
               SizedBox(width: 8.w),
-
-
               Expanded(
                 child: Container(
                   decoration: BoxDecoration(
@@ -85,7 +83,6 @@ class _ChatInputBarState extends State<ChatInputBar>
                 ),
               ),
               SizedBox(width: 8.w),
-
               GestureDetector(
                 onTap: () {
                   if (isTyping && widget.onSendMessage != null) {

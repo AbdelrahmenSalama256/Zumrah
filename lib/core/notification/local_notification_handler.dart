@@ -9,10 +9,7 @@ class LocalNotificationService {
   static StreamController<NotificationResponse> streamController =
       StreamController();
   static onTap(NotificationResponse notificationResponse) {
-
-
     streamController.add(notificationResponse);
-
   }
 
   static Future init() async {
@@ -26,7 +23,6 @@ class LocalNotificationService {
       onDidReceiveBackgroundNotificationResponse: onTap,
     );
   }
-
 
   static Future<void> showSimpleNotification({
     required String title,
@@ -61,5 +57,3 @@ class LocalNotificationService {
     );
   }
 }
-
-

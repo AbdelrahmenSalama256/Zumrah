@@ -124,7 +124,6 @@ String? formatTime(String? dateTimeString) {
 }
 
 Future<MultipartFile> uploadImageToAPI(XFile image) async {
-
   String? mimeType = lookupMimeType(image.path);
 
   return MultipartFile.fromFile(

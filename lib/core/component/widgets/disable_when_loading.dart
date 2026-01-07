@@ -7,7 +7,11 @@ class DisableWhenLoading extends StatelessWidget {
   final Widget child;
   final double disabledOpacity;
 
-  const DisableWhenLoading({super.key, required this.disabled, required this.child, this.disabledOpacity = 0.6});
+  const DisableWhenLoading(
+      {super.key,
+      required this.disabled,
+      required this.child,
+      this.disabledOpacity = 0.6});
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +32,12 @@ class BlocDisableWhen<B extends StateStreamable<S>, S> extends StatelessWidget {
   final Widget child;
   final double disabledOpacity;
 
-  const BlocDisableWhen({super.key, required this.bloc, required this.disabledWhen, required this.child, this.disabledOpacity = 0.6});
+  const BlocDisableWhen(
+      {super.key,
+      required this.bloc,
+      required this.disabledWhen,
+      required this.child,
+      this.disabledOpacity = 0.6});
 
   @override
   Widget build(BuildContext context) {
@@ -48,4 +57,3 @@ class BlocDisableWhen<B extends StateStreamable<S>, S> extends StatelessWidget {
     );
   }
 }
-

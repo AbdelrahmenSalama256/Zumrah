@@ -9,10 +9,12 @@ class UnifiedAppBar extends StatelessWidget implements PreferredSizeWidget {
   final List<Widget>? actions;
   final bool centerTitle;
 
-  const UnifiedAppBar.main({super.key, required this.title, this.actions, this.centerTitle = true})
+  const UnifiedAppBar.main(
+      {super.key, required this.title, this.actions, this.centerTitle = true})
       : isMain = true;
 
-  const UnifiedAppBar.inner({super.key, required this.title, this.actions, this.centerTitle = true})
+  const UnifiedAppBar.inner(
+      {super.key, required this.title, this.actions, this.centerTitle = true})
       : isMain = false;
 
   @override
@@ -48,4 +50,3 @@ class UnifiedAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 }
-

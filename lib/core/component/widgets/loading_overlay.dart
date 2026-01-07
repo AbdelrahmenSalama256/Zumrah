@@ -6,7 +6,11 @@ class LoadingOverlay extends StatelessWidget {
   final bool isLoading;
   final Color barrierColor;
 
-  const LoadingOverlay({super.key, required this.child, required this.isLoading, this.barrierColor = const Color(0x66000000)});
+  const LoadingOverlay(
+      {super.key,
+      required this.child,
+      required this.isLoading,
+      this.barrierColor = const Color(0x66000000)});
 
   @override
   Widget build(BuildContext context) {
@@ -30,4 +34,3 @@ class LoadingOverlay extends StatelessWidget {
     );
   }
 }
-
