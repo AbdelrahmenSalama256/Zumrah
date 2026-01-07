@@ -284,6 +284,8 @@
   "city": "المدينة",
   "zip_code": "الرمز البريدي",
   "save_changes": "حفظ التغييرات",
+  "profile_social_link_hint": "أدخل رابط حسابك الاجتماعي",
+  "profile_save_label": "حفظ",
   "profile_updated": "تم تحديث الملف الشخصي",
   "all": "الكل",
   "processing": "قيد المعالجة",

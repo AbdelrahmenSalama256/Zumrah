@@ -284,6 +284,8 @@
   "city": "City",
   "zip_code": "ZIP Code",
   "save_changes": "Save Changes",
+  "profile_social_link_hint": "Enter your social account link",
+  "profile_save_label": "Save",
   "profile_updated": "Profile Updated",
   "all": "All",
   "processing": "Processing",
