@@ -134,8 +134,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   Widget buildNotificationDetails(
       BuildContext context, Map<String, dynamic> notification) {
-    final screenHeight = MediaQuery.of(context).size.height;
-
     return BackdropFilter(
       filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
       child: Container(

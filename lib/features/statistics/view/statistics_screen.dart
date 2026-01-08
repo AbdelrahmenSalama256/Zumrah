@@ -15,6 +15,50 @@ import 'package:zumrah/features/statistics/view/widgets/statistics_card_share.da
 class StatisticsScreen extends StatelessWidget {
   const StatisticsScreen({super.key});
 
+  // Dummy data for recent shares
+  final List<Map<String, dynamic>> _recentSharesData = const [
+    {
+      'title': 'محمد أحمد',
+      'subtitle': 'حفظ جهة الاتصال',
+      'type': 'save_contact',
+      'dateTime': '2 دقيقة',
+      'isOnline': true,
+      'avatarUrl': 'assets/images/png/avatar.png',
+    },
+    {
+      'title': 'سارة عبدالله',
+      'subtitle': 'مشاركة الملف الشخصي',
+      'type': 'share_contact',
+      'dateTime': '15 دقيقة',
+      'isOnline': true,
+      'avatarUrl': 'assets/images/png/avatar.png',
+    },
+    {
+      'title': 'خالد الرويلي',
+      'subtitle': 'مسح رمز QR',
+      'type': 'link',
+      'dateTime': 'ساعة',
+      'isOnline': false,
+      'avatarUrl': 'assets/images/png/avatar.png',
+    },
+    {
+      'title': 'نورة القحطاني',
+      'subtitle': 'عرض الملف الشخصي',
+      'type': 'view',
+      'dateTime': '3 ساعات',
+      'isOnline': false,
+      'avatarUrl': 'assets/images/png/avatar.png',
+    },
+    {
+      'title': 'فريق الدعم',
+      'subtitle': 'مشاركة عبر NFC',
+      'type': 'link',
+      'dateTime': '5 ساعات',
+      'isOnline': true,
+      'avatarUrl': 'assets/images/png/avatar.png',
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -278,20 +322,24 @@ class StatisticsScreen extends StatelessWidget {
               SizedBox(
                 height: 24.h,
               ),
-              // List of recent activities
+              // List of recent activities with proper sizing
+              Column(
+                children: _recentSharesData.map((data) {
+                  return Padding(
+                    padding: EdgeInsets.only(bottom: 12.h),
+                    child: RecentShare(
+                      title: data['title'],
+                      subtitle: data['subtitle'],
+                      type: data['type'],
+                      dateTime: data['dateTime'],
+                      isOnline: data['isOnline'],
+                      avatarUrl: data['avatarUrl'],
+                    ),
+                  );
+                }).toList(),
+              ),
               SizedBox(
-                height: 200.h,
-                child: ListView.separated(
-                  separatorBuilder: (context, index) => SizedBox(height: 12.h),
-                  itemBuilder: (context, index) => RecentShare(
-                    type: "save_contact",
-                    isOnline: true,
-                  ),
-                  itemCount: 5,
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  physics: AlwaysScrollableScrollPhysics(),
-                ),
+                height: 32.h,
               ),
             ],
           ),

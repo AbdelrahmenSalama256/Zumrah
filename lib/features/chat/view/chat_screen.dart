@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:zumrah/core/component/widgets/app_button.dart';
 import 'package:zumrah/core/constants/app_colors.dart';
+import 'package:zumrah/core/constants/navigation.dart';
+import 'package:zumrah/core/locale/app_loacl.dart';
+import 'package:zumrah/features/chat/view/chat_details_screen.dart';
 import 'package:zumrah/features/home/view/widgets/app_bar_main.dart';
 
+import '../data/models/massage_model.dart';
 import 'widgets/chat_item.dart';
 
 class ChatScreen extends StatefulWidget {
@@ -36,7 +40,7 @@ class _ChatScreenState extends State<ChatScreen>
     return Scaffold(
       backgroundColor: Colors.transparent,
       appBar: AppBarMain(
-        title: 'الرسائل',
+        title: 'chat_title'.tr(context),
         onMenuTap: () {
           Scaffold.of(context).openDrawer();
         },
@@ -72,7 +76,7 @@ class _ChatScreenState extends State<ChatScreen>
                           ),
                           SizedBox(width: 10.w),
                           Text(
-                            'رسائل الزوار',
+                            'chat_guest_messages'.tr(context),
                             style: TextStyle(
                               color: AppColors.secondaryHeadTextColor,
                               fontSize: 18.sp,
@@ -84,7 +88,7 @@ class _ChatScreenState extends State<ChatScreen>
                       ),
                       SizedBox(height: 5.h),
                       Text(
-                        "لديك رسائل من زوار الملف الشخصي",
+                        'chat_guest_messages_desc'.tr(context),
                         style: TextStyle(
                           color: AppColors.secondaryHeadTextColor,
                           fontSize: 14.sp,
@@ -94,7 +98,7 @@ class _ChatScreenState extends State<ChatScreen>
                       ),
                       SizedBox(height: 15.h),
                       AppButton(
-                        text: "عرض الرسائل",
+                        text: 'chat_view_messages'.tr(context),
                         suffixIcon: Icon(
                           Icons.arrow_forward,
                           color: AppColors.white,
@@ -131,7 +135,6 @@ class _ChatScreenState extends State<ChatScreen>
                 indicatorSize: TabBarIndicatorSize.tab,
                 indicator: BoxDecoration(
                   gradient: LinearGradient(
-                    // colors: [AppColors.g1, AppColors.g2],
                     colors: [Colors.white, Colors.white],
                     begin: Alignment.centerLeft,
                     end: Alignment.centerRight,
@@ -161,13 +164,13 @@ class _ChatScreenState extends State<ChatScreen>
                 ),
                 tabs: [
                   Tab(
-                    icon: Text('الكل'),
+                    text: 'chat_tab_all'.tr(context),
                   ),
                   Tab(
-                    icon: Text('المجموعات'),
+                    text: 'chat_tab_groups'.tr(context),
                   ),
                   Tab(
-                    icon: Text('الأفراد'),
+                    text: 'chat_tab_individuals'.tr(context),
                   ),
                 ],
               ),
@@ -187,11 +190,11 @@ class _ChatScreenState extends State<ChatScreen>
                   SingleChildScrollView(
                     child: Column(
                       children: [
-                        _buildSectionTitle('المحادثات النشطة'),
+                        _buildSectionTitle('chat_section_active'.tr(context)),
                         SizedBox(height: 12.h),
                         ..._buildActiveChats(),
                         SizedBox(height: 24.h),
-                        _buildSectionTitle('المحادثات السابقة'),
+                        _buildSectionTitle('chat_section_previous'.tr(context)),
                         SizedBox(height: 12.h),
                         ..._buildPreviousChats(),
                       ],
@@ -257,31 +260,52 @@ class _ChatScreenState extends State<ChatScreen>
 
   List<Widget> _buildActiveChats() {
     return [
+      // Group chat example
       ChatItem(
         title: "فريق الدعم الفني",
         subtitle: "مرحبًا! كيف يمكننا مساعدتك اليوم؟",
-        dateTime: "الآن",
+        dateTime: 'chat_now'.tr(context),
         isOnline: true,
         avatarUrl: 'assets/images/png/avatar.png',
         unreadCount: "3",
+        isGroup: true,
+        onTap: () {
+          _navigateToGroupChat(
+            'فريق الدعم الفني',
+            ['علي', 'محمد', 'فاطمة', 'خالد'],
+          );
+        },
       ),
       SizedBox(height: 10.h),
+      // Single chat example
       ChatItem(
         title: "أحمد محمد",
         subtitle: "شكرًا لك على المساعدة!",
-        dateTime: "2 دقيقة",
+        dateTime: "2 ${'chat_minutes_ago'.tr(context)}",
         isOnline: true,
         avatarUrl: 'assets/images/png/avatar.png',
         unreadCount: "1",
+        isGroup: false,
+        onTap: () {
+          _navigateToSingleChat('أحمد محمد');
+        },
       ),
       SizedBox(height: 10.h),
+      // Group chat example
       ChatItem(
         title: "مجموعة الحجاج",
         subtitle: "محمد: نلتقي غدًا في الساعة 10",
-        dateTime: "5 دقائق",
+        dateTime: "5 ${'chat_minutes_ago'.tr(context)}",
         isOnline: true,
         avatarUrl: 'assets/images/png/avatar.png',
         unreadCount: "12",
+        isGroup: true,
+        onTap: () {
+          _navigateToGroupChat(
+            'مجموعة الحجاج',
+            ['سالم', 'نورة', 'ماجد', 'هدى', 'ياسر'],
+          );
+        },
       ),
     ];
   }
@@ -291,37 +315,54 @@ class _ChatScreenState extends State<ChatScreen>
       ChatItem(
         title: "سارة عبدالله",
         subtitle: "هل يمكنك مساعدتي في تحديد...",
-        dateTime: "أمس",
+        dateTime: 'chat_yesterday'.tr(context),
         isOnline: false,
         avatarUrl: 'assets/images/png/avatar.png',
         unreadCount: "0",
+        isGroup: false,
+        onTap: () {
+          _navigateToSingleChat('سارة عبدالله');
+        },
       ),
       SizedBox(height: 10.h),
       ChatItem(
         title: "عبدالرحمن",
         subtitle: "تم استلام المستندات، شكرًا",
-        dateTime: "2 يوم",
+        dateTime: "2 ${'chat_days_ago'.tr(context)}",
         isOnline: false,
         avatarUrl: 'assets/images/png/avatar.png',
         unreadCount: "0",
+        isGroup: false,
+        onTap: () {
+          _navigateToSingleChat('عبدالرحمن');
+        },
       ),
       SizedBox(height: 10.h),
       ChatItem(
         title: "فريق الإدارة",
         subtitle: "اجتماع يوم الخميس القادم",
-        dateTime: "3 أيام",
+        dateTime: "3 ${'chat_days_ago'.tr(context)}",
         isOnline: false,
         avatarUrl: 'assets/images/png/avatar.png',
         unreadCount: "0",
+        isGroup: true,
+        onTap: () {
+          _navigateToGroupChat(
+              'فريق الإدارة', ['المدير', 'نائب المدير', 'المشرفين']);
+        },
       ),
       SizedBox(height: 10.h),
       ChatItem(
         title: "مصطفى الكامل",
         subtitle: "شكرًا على تلبية الطلب",
-        dateTime: "أسبوع",
+        dateTime: 'chat_week_ago'.tr(context),
         isOnline: false,
         avatarUrl: 'assets/images/png/avatar.png',
         unreadCount: "0",
+        isGroup: false,
+        onTap: () {
+          _navigateToSingleChat('مصطفى الكامل');
+        },
       ),
     ];
   }
@@ -331,37 +372,58 @@ class _ChatScreenState extends State<ChatScreen>
       ChatItem(
         title: "مجموعة الحجاج 2024",
         subtitle: "محمد: النقاش مستمر حول الموعد",
-        dateTime: "الآن",
+        dateTime: 'chat_now'.tr(context),
         isOnline: true,
         avatarUrl: 'assets/images/png/avatar.png',
         unreadCount: "8",
+        isGroup: true,
+        onTap: () {
+          _navigateToGroupChat(
+            'مجموعة الحجاج 2024',
+            ['عمر', 'ريم', 'فهد', 'لولوة', 'تركي'],
+          );
+        },
       ),
       SizedBox(height: 10.h),
       ChatItem(
         title: "فريق الدعم",
         subtitle: "أحمد: تم حل المشكلة",
-        dateTime: "30 دقيقة",
+        dateTime: "30 ${'chat_minutes_ago'.tr(context)}",
         isOnline: true,
         avatarUrl: 'assets/images/png/avatar.png',
         unreadCount: "3",
+        isGroup: true,
+        onTap: () {
+          _navigateToGroupChat('فريق الدعم', ['أحمد', 'محمد', 'سعيد', 'ناصر']);
+        },
       ),
       SizedBox(height: 10.h),
       ChatItem(
         title: "متطوعي الزمزم",
         subtitle: "سالم: جدول النوبات الجديد",
-        dateTime: "ساعة",
+        dateTime: 'chat_hour_ago'.tr(context),
         isOnline: true,
         avatarUrl: 'assets/images/png/avatar.png',
         unreadCount: "5",
+        isGroup: true,
+        onTap: () {
+          _navigateToGroupChat(
+              'متطوعي الزمزم', ['سالم', 'مشعل', 'منى', 'بدر', 'جواهر']);
+        },
       ),
       SizedBox(height: 10.h),
       ChatItem(
         title: "مجموعة التعارف",
         subtitle: "خالد: مرحبًا بالجميع",
-        dateTime: "2 يوم",
+        dateTime: "2 ${'chat_days_ago'.tr(context)}",
         isOnline: false,
         avatarUrl: 'assets/images/png/avatar.png',
         unreadCount: "0",
+        isGroup: true,
+        onTap: () {
+          _navigateToGroupChat(
+              'مجموعة التعارف', ['خالد', 'نوف', 'فيصل', 'هناء']);
+        },
       ),
     ];
   }
@@ -371,38 +433,97 @@ class _ChatScreenState extends State<ChatScreen>
       ChatItem(
         title: "فاطمة العتيبي",
         subtitle: "هل يمكنني تغيير موعد الزيارة؟",
-        dateTime: "الآن",
+        dateTime: 'chat_now'.tr(context),
         isOnline: true,
         avatarUrl: 'assets/images/png/avatar.png',
         unreadCount: "2",
+        isGroup: false,
+        onTap: () {
+          _navigateToSingleChat('فاطمة العتيبي');
+        },
       ),
       SizedBox(height: 10.h),
       ChatItem(
         title: "خالد الرويلي",
         subtitle: "شكرًا على المعلومات القيمة",
-        dateTime: "15 دقيقة",
+        dateTime: "15 ${'chat_minutes_ago'.tr(context)}",
         isOnline: true,
         avatarUrl: 'assets/images/png/avatar.png',
         unreadCount: "1",
+        isGroup: false,
+        onTap: () {
+          _navigateToSingleChat('خالد الرويلي');
+        },
       ),
       SizedBox(height: 10.h),
       ChatItem(
         title: "نورة القحطاني",
         subtitle: "أرسلت لك الملف المطلوب",
-        dateTime: "ساعة",
+        dateTime: 'chat_hour_ago'.tr(context),
         isOnline: false,
         avatarUrl: 'assets/images/png/avatar.png',
         unreadCount: "0",
+        isGroup: false,
+        onTap: () {
+          _navigateToSingleChat('نورة القحطاني');
+        },
       ),
       SizedBox(height: 10.h),
       ChatItem(
         title: "محمد الشهري",
         subtitle: "نلتقي غدًا إن شاء الله",
-        dateTime: "3 ساعات",
+        dateTime: "3 ${'chat_hours_ago'.tr(context)}",
         isOnline: false,
         avatarUrl: 'assets/images/png/avatar.png',
         unreadCount: "0",
+        isGroup: false,
+        onTap: () {
+          _navigateToSingleChat('محمد الشهري');
+        },
       ),
     ];
+  }
+
+  void _navigateToSingleChat(String userName) {
+    navigateTo(
+      context,
+      ChatDetailsScreen(
+        chatType: ChatType.single,
+        chatUser: ChatUser(
+          id: 'user_${userName.hashCode}',
+          name: userName,
+          subtitle: 'chat_online_now'.tr(context),
+          profileImage: 'assets/images/png/avatar.png',
+          isOnline: true,
+        ),
+      ),
+    );
+  }
+
+  void _navigateToGroupChat(String groupName, List<String> memberNames) {
+    final members = memberNames.map((name) {
+      return ChatUser(
+        id: 'member_${name.hashCode}',
+        name: name,
+        subtitle: 'chat_member'.tr(context),
+        profileImage: 'assets/images/png/avatar.png',
+        isOnline: name == memberNames.first,
+      );
+    }).toList();
+
+    navigateTo(
+      context,
+      ChatDetailsScreen(
+        chatType: ChatType.group,
+        chatGroup: ChatGroup(
+          id: 'group_${groupName.hashCode}',
+          name: groupName,
+          members: members,
+          subtitle:
+              '${members.length} ${'chat_members'.tr(context)} • ${members.where((m) => m.isOnline).length} ${'chat_online_now'.tr(context)}',
+          onlineCount: members.where((m) => m.isOnline).length,
+        ),
+      ),
+    );
   }
 }

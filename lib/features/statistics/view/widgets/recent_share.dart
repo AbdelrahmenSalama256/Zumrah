@@ -24,13 +24,28 @@ class RecentShare extends StatelessWidget {
     this.avatarUrl,
   });
 
+  // Helper method to get icon based on type
+  IconData _getIconForType(String? type) {
+    switch (type) {
+      case 'link':
+        return Iconsax.link;
+      case 'save_contact':
+        return Iconsax.arrow_down;
+      case 'share_contact':
+        return Iconsax.share;
+      case 'view':
+        return Iconsax.eye;
+      default:
+        return Iconsax.eye;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
       borderRadius: BorderRadius.circular(16.r),
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16), // blur 16px
-
+        filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
         child: Container(
           padding: EdgeInsets.all(12.w),
           decoration: BoxDecoration(
@@ -42,7 +57,7 @@ class RecentShare extends StatelessWidget {
             color: Colors.white.withOpacity(0.6),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05), // خففته عشان يشبه 0D
+                color: Colors.black.withOpacity(0.05),
                 blurRadius: 30.r,
                 offset: Offset(0, 4.h),
               ),
@@ -65,8 +80,6 @@ class RecentShare extends StatelessWidget {
                         padding: EdgeInsets.all(0.w),
                         decoration: BoxDecoration(
                           color: AppColors.white,
-
-                          // borderRadius: BorderRadius.circular(12.r),
                           shape: BoxShape.circle,
                           boxShadow: [
                             BoxShadow(
@@ -107,7 +120,7 @@ class RecentShare extends StatelessWidget {
                                   ),
                                 ),
                               )
-                            : SizedBox.shrink(),
+                            : const SizedBox.shrink(),
                       ),
                     ],
                   ),
@@ -168,35 +181,12 @@ class RecentShare extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            if (type == "link") ...[
-                              Icon(
-                                Iconsax.link,
-                                size: 12.sp,
-                                color: AppColors.secondaryHeadTextColor
-                                    .withOpacity(0.7),
-                              ),
-                            ] else if (type == "save_contact") ...[
-                              Icon(
-                                Iconsax.arrow_down,
-                                size: 12.sp,
-                                color: AppColors.secondaryHeadTextColor
-                                    .withOpacity(0.7),
-                              ),
-                            ] else if (type == "share_contact") ...[
-                              Icon(
-                                Iconsax.share,
-                                size: 12.sp,
-                                color: AppColors.secondaryHeadTextColor
-                                    .withOpacity(0.7),
-                              ),
-                            ] else ...[
-                              Icon(
-                                Iconsax.eye,
-                                size: 12.sp,
-                                color: AppColors.secondaryHeadTextColor
-                                    .withOpacity(0.7),
-                              ),
-                            ]
+                            Icon(
+                              _getIconForType(type),
+                              size: 12.sp,
+                              color: AppColors.secondaryHeadTextColor
+                                  .withOpacity(0.7),
+                            ),
                           ],
                         ),
                       ],

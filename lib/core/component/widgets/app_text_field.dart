@@ -16,6 +16,8 @@ class AppTextField extends StatefulWidget {
   final TextInputType keyboardType;
   final TextInputAction textInputAction;
   final int? maxLength;
+  final BorderRadius? borderRadius;
+
   final int maxLines;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
@@ -62,6 +64,7 @@ class AppTextField extends StatefulWidget {
     this.autovalidateMode = AutovalidateMode.onUserInteraction,
     this.inputBorderColor,
     this.hintStyle,
+    this.borderRadius,
   });
 
   @override
@@ -159,32 +162,32 @@ class _AppTextFieldState extends State<AppTextField> {
               vertical: 16.h,
             ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: widget.borderRadius ?? BorderRadius.circular(12.r),
           borderSide: BorderSide(
             color: widget.inputBorderColor ?? Color(0xffEBEBEB),
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: widget.borderRadius ?? BorderRadius.circular(12.r),
           borderSide: BorderSide(
             color: widget.inputBorderColor ?? const Color(0xffEBEBEB),
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: widget.borderRadius ?? BorderRadius.circular(12.r),
           borderSide: BorderSide(
             color: widget.inputBorderColor ?? Color(0xffEBEBEB),
             width: 2,
           ),
         ),
         errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: widget.borderRadius ?? BorderRadius.circular(12.r),
           borderSide: BorderSide(
             color: Color(0xFFE53935),
           ),
         ),
         focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12.r),
+          borderRadius: widget.borderRadius ?? BorderRadius.circular(12.r),
           borderSide: const BorderSide(
             color: Color(0xFFE53935),
             width: 2,

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:zumrah/core/constants/app_colors.dart';
+import 'package:zumrah/core/cubit/global_cubit.dart';
 import 'package:zumrah/core/locale/app_loacl.dart';
 
 import 'home_services_card.dart';
@@ -35,18 +37,17 @@ class QuickAccessSection extends StatelessWidget {
             childAspectRatio: 1.2,
             children: [
               HomeServicesCard(
-                icon: Iconsax.home,
+                icon: Iconsax.document,
                 title: "home_service_reports_title".tr(context),
                 subtitle: "home_service_reports_subtitle".tr(context),
-                onTap: () {
-                  debugPrint('Reports tapped');
-                },
+                onTap: () {},
               ),
+              // daily tassks
               HomeServicesCard(
-                icon: Icons.groups_outlined,
+                icon: Iconsax.category_2,
                 iconColor: const Color(0xff9333EA),
-                title: "home_service_team_title".tr(context),
-                subtitle: "home_service_team_subtitle".tr(context),
+                title: "home_service_daily_title".tr(context),
+                subtitle: "home_service_daily_subtitle".tr(context),
                 onTap: () {
                   debugPrint('Team tapped');
                 },
@@ -57,7 +58,7 @@ class QuickAccessSection extends StatelessWidget {
                 iconColor: const Color(0xffEA580C),
                 subtitle: "home_service_analytics_subtitle".tr(context),
                 onTap: () {
-                  debugPrint('Analytics tapped');
+                  context.read<GlobalCubit>().changeBottomNavIndex(1);
                 },
               ),
               HomeServicesCard(
@@ -66,7 +67,7 @@ class QuickAccessSection extends StatelessWidget {
                 title: "home_service_settings_title".tr(context),
                 subtitle: "home_service_settings_subtitle".tr(context),
                 onTap: () {
-                  debugPrint('Settings tapped');
+                  context.read<GlobalCubit>().changeBottomNavIndex(3);
                 },
               ),
             ],

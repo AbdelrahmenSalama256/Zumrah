@@ -14,10 +14,10 @@ import 'package:zumrah/core/utils/validator.dart';
 import 'package:zumrah/features/auth/view/create_account_screen.dart';
 import 'package:zumrah/features/auth/view/cubit/auth_cubit.dart';
 import 'package:zumrah/features/auth/view/cubit/auth_state.dart';
+import 'package:zumrah/features/base/view/base_screen.dart';
 
 import '../../../core/component/custom_toast.dart';
 import '../../../core/constants/navigation.dart';
-import 'widgets/create_new_password_bottom_sheet.dart';
 
 //! VerificationScreen - With Premium Glassmorphism Card Design
 class VerificationScreen extends StatelessWidget {
@@ -77,18 +77,7 @@ class VerificationScreen extends StatelessWidget {
               message: state.message.tr(context),
               state: ToastStates.success,
             );
-            Navigator.pop(context);
-            WidgetsBinding.instance.addPostFrameCallback((_) {
-              showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                backgroundColor: Colors.transparent,
-                builder: (_) => BlocProvider.value(
-                  value: authCubit,
-                  child: const CreateNewPasswordBottomSheet(),
-                ),
-              );
-            });
+            navigateAndFinish(context, BaseScreen());
           } else if (state is AuthFailure) {
             showToast(
               context,
